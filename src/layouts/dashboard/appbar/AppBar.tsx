@@ -8,6 +8,7 @@ import { styled } from '@mui/material/styles';
 import { ILinearProgress, TMainProp } from '../../../interfaces';
 import { useScrollTop } from '../../../hooks';
 import { getLinearProgress } from '../../../store';
+import User from './User';
 
 /* interfaces */
 interface IAppBarProps extends MuiAppBarProps {
@@ -68,6 +69,9 @@ function AppBarItem(props: { drawer: Boolean, onToggleDrawer: Function, isMobile
                 >
                     Dashboard
                 </Typography>
+
+                {/* user */}
+                <User />
             </Toolbar>
             
             {/* linear progress */}

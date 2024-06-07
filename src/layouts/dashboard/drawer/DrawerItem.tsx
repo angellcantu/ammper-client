@@ -21,6 +21,7 @@ function DrawerItem() {
     const navigate = useNavigate();
 
     const onHandleTransactions = () => setTransactions(!transactions);
+    const onHandleRedirect = (url: string) => navigate(url);
 
     return (
         <Fragment>
@@ -32,7 +33,7 @@ function DrawerItem() {
 
             <List component='nav'>
                 {/* home */}
-                <ListItemButton>
+                <ListItemButton onClick={() => onHandleRedirect('/dashboard')}>
                     <ListItemAvatar>
                         <Avatar>
                             <Home />
@@ -55,7 +56,7 @@ function DrawerItem() {
                 </ListItemButton>
 
                 <Collapse in={transactions} timeout='auto' unmountOnExit>
-                    <List onClick={() => navigate('/dashboard/transactions')} component='div' disablePadding>
+                    <List onClick={() => onHandleRedirect('/dashboard/transactions')} component='div' disablePadding>
                         <ListItemButton sx={{ pl: 4 }}>
                             <ListItemIcon>
                                 <FormatListBulleted />
@@ -64,7 +65,7 @@ function DrawerItem() {
                         </ListItemButton>
                     </List>
 
-                    <List component='div' disablePadding>
+                    <List onClick={() => onHandleRedirect('/dashboard/charts')} component='div' disablePadding>
                         <ListItemButton sx={{ pl: 4 }}>
                             <ListItemIcon>
                                 <Assessment />

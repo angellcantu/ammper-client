@@ -6,47 +6,53 @@ import HighchartsReact from 'highcharts-react-official';
 import HighCharts from 'highcharts';
 
 /* main component */
-function Scatter(props: { items: Array<any> }) {
+function Area(props: { items: Array<any> }) {
 
     const [options, setOptions] = useState({
         chart: {
-            type: 'scatter',
-            zooming: {
-                type: 'xy'
-            }
+            type: 'area'
         },
         title: {
-            text: 'Categories',
-            align: 'center'
+            text: 'Categories and Amounts'
         },
         xAxis: {
-            title: {
-                text: 'Date'
-            },
-            startOnTick: true,
-            endOnTick: true,
-            showLastLabel: true
+            allowDecimals: false,
+            accessibility: {
+                rangeDescription: 'Range'
+            }
         },
         yAxis: {
             title: {
-                text: 'Amount'
+                text: 'Amounts'
             }
         },
-        tooltip: {
-            pointFormat: 'Amount: ${point.y}MXN'
+        plotOptions: {
+            area: {
+                pointStart: 1940,
+                marker: {
+                    enabled: false,
+                    symbol: 'circle',
+                    radius: 2,
+                    states: {
+                        hover: {
+                            enabled: true
+                        }
+                    }
+                }
+            }
         },
         series: [] as any
     });
 
     useEffect(() => {
         let series = [...new Set(props.items.map(item => item.category))];
-        let _series: Array<{ name: string, data: Array<Array<any>> }> = [];
+        let _series: Array<{ name: string, data: Array<any> }> = [];
 
         const getData = (category: string) => {
-            let temp: Array<Array<any>> = [];
+            let temp: Array<any> = [];
             props.items.forEach(item => {
                 if (item.category == category) {
-                    temp.push([item.value_date, item.amount]);
+                    temp.push(item.amount);
                 }
             });
             return temp;
@@ -68,7 +74,7 @@ function Scatter(props: { items: Array<any> }) {
                     color='inherit'
                     noWrap
                 >
-                    Scatter Chart
+                    Area Chart
                 </Typography>
             </Toolbar>
 
@@ -86,5 +92,5 @@ function Scatter(props: { items: Array<any> }) {
 }
 
 export {
-    Scatter
+    Area
 };
